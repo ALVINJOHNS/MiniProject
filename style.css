@@ -1,0 +1,52 @@
+body {
+    background-color: rgb(40, 38, 38);
+}
+
+h1 {    
+    color: white;
+    font-size: 40px;
+    margin-left: 20px;
+    margin-top: 50px;
+    background-color: rgb(0, 0, 0);
+}
+.video-tab {
+    width: 500px;
+    height: 300px;
+    background-color: rgb(57, 57, 57);
+    border: 2px solid black;
+    border-radius: 10px;
+   
+}
+
+.video-tab:hover {
+    background-color: rgb(40, 38, 38);
+    cursor: pointer;
+}
+
+.video-tab-r1 {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.message-area {
+    width: 400px;
+    height: 800px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+    align-items: center;
+ 
+    
+}
+.video-area {
+  width: 70%;
+    height: 90%;
+  
+}
+.video-n-mess {
+    display: flex;
+    justify-content: space-evenly;
+   
+}
