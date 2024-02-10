@@ -68,3 +68,46 @@ h1 {
     font-size: 20px;
     
 }
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align items to the bottom */
+    margin-bottom: 20px; /* Add margin to create space */
+  }
+  
+  .controls button {
+    margin: 0 10px; /* Add space between buttons */
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .mute-video img {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border-radius: 50%; /* Make it circular */
+    background-color: #ff0000; /* Example color for the background */
+  }
+
+  .mute-audio img {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border-radius: 50%; /* Make it circular */
+    background-color: #ff0000; /* Example color for the background */
+  }
+
+  .mute-message img {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border-radius: 50%; /* Make it circular */
+    background-color: #ff0000; /* Example color for the background */
+  }
+  
+  
+  
+
+  
+  
+
