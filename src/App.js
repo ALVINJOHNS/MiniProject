@@ -1,23 +1,15 @@
-import logo from './logo.svg';
+import GridView from "./Components/GridView/GridView";
 import './App.css';
+import {useState} from 'react';
 
 function App() {
+  const [n, setN] = useState(1);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Main-Div">
+      <div className="Grid-Div">
+        <GridView n={n} />
+        <button onClick={()=>{setN(n+1)}}>add</button>
+      </div>
     </div>
   );
 }
