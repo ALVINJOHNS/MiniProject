@@ -1,0 +1,23 @@
+.Grid-Div{
+    width: 153vb;
+   height: 80vb;
+
+}
+.header{
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+    font-weight: 600;
+    padding: 15px;
+    background-color:#5A5353;
+    border-radius: 30px;
+    height: 6vh;
+    margin: 20px;
+
+}
+
+.Grid{
+    margin: 20px;
+}
+.na{
+    background-color: aliceblue;
+}

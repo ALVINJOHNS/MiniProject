@@ -1,5 +1,9 @@
-.Grid-Div{
-    /* width: 700px; */
-    height: 1000px;
-    margin: auto;
+*{
+    background-color: black;
+ 
+   
+}
+
+.Main-Div {
+    display: flex;
 }

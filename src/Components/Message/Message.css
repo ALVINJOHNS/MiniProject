@@ -1,0 +1,48 @@
+.message-area {
+   width: 40vb;
+   min-width: 20vb;
+    height:90vb ;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+    align-items: center;
+    position: relative;
+    right: 10px;
+}
+.text-field {
+    width: 90%;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    padding: 10px;
+    padding-right: 15px;
+    margin: 10px;
+    display: flex;
+}
+
+.text-input {
+    width: 70%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-color: transparent;
+    font-size: 20px;
+    background-color: #ffffff; 
+    padding: 5px; 
+}
+.send-button{
+   font-size: 18px;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    background-color: rgb(112, 214, 255);
+
+}

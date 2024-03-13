@@ -1,0 +1,28 @@
+.camera-container-full {
+    width: 146.5vb;
+    height: 65vb;
+    position: relative;
+    overflow: hidden;
+  }
+  .camera-container-half{
+    min-height: 40vb;
+    max-height: 800vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .camera-video-full {
+    width: 146.5vb;
+    height: 65vb;
+    object-fit: fill; /* Adjust as needed (cover, contain, etc.) */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .camera-video-half{
+    min-height: 40vb;
+    max-height: 800vh;
+    object-fit: fill; /* Adjust as needed (cover, contain, etc.) */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
