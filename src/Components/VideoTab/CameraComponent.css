@@ -6,7 +6,7 @@
   }
   .camera-container-half{
     min-height: 40vb;
-    max-height: 800vh;
+    max-height: 500vh;
     position: relative;
     overflow: hidden;
   }
@@ -20,7 +20,7 @@
   }
   .camera-video-half{
     min-height: 40vb;
-    max-height: 800vh;
+    max-height: 500vh;
     object-fit: fill; /* Adjust as needed (cover, contain, etc.) */
     position: absolute;
     top: 0;

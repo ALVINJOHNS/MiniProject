@@ -1,12 +1,12 @@
 .video-tab-half {
     min-height: 34vb;
-    max-height: 800vh;
+    max-height: 500vh;
     min-width: 40vb;
     /* max-width: 60vb; */
     background-color: #5A5353;
     border: 2px solid black;
     border-radius: 10px;
-    
+    transform:  scaleX(-1);
 }
 
 .video-tab-full {
@@ -20,4 +20,5 @@
     position: relative;
     margin-left:auto;
     margin-right:50px ;
+   
 } 
