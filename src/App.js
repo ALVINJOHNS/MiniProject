@@ -1,14 +1,18 @@
-import GridView from "./Components/GridView/GridView";
 import './App.css';
-import Message from "./Components/Message/Message";
-
+import VideoRoom from './Pages/VideoRoom/VideoRoom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
+
   return (
-    <div className="Main-Div">
-      <GridView/>
-      <Message />
+    <Router>
+    <div>
+      <Routes>
+        <Route path="/" element={<VideoRoom />} />
+      </Routes>
     </div>
+    </Router>
   );
 }
 
 export default App;
+

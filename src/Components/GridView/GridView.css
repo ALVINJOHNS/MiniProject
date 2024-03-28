@@ -17,6 +17,10 @@
 
 .Grid{
     margin: 20px;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
 }
 .na{
     background-color: aliceblue;

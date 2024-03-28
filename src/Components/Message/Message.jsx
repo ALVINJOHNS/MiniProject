@@ -6,7 +6,7 @@ function Message() {
     <div className="message-area">
       <div className="text-field">
         <input type="text" className="text-input" />
-        <button className="send-button"><FaPaperPlane /></button>
+        <FaPaperPlane className='send-icon' onClick={console.log('hi.................')}></FaPaperPlane>
       </div>
     </div>
   );

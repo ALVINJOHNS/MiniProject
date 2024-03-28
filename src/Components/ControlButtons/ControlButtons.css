@@ -1,3 +1,44 @@
 .Control-Buttons{
-    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Control-Buttons button{
+    margin: 0 10px;
+    padding: 13px 15px 6px 15px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 31px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    justify-content: center;
+    align-items: center;
+
+}
+.mic-button{
+
+    background-color: white;
+}
+.phone-button{
+   background-color: rgb(255, 0, 0);
+  
+}
+.video-button{
+    background-color: white;
+
+}
+.mic-icon{  
+    color: black;
+    background-color: white;
+}
+
+.phone-icon{ fill: rgb(255, 255, 255);
+    color: black;
+   background-color: rgb(255, 0, 0);
+}
+.video-icon{
+    color: black;
+    background-color: white;
 }

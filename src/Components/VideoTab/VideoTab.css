@@ -1,6 +1,8 @@
 .video-tab-half {
-    min-height: 40vb;
+    min-height: 34vb;
     max-height: 800vh;
+    min-width: 40vb;
+    /* max-width: 60vb; */
     background-color: #5A5353;
     border: 2px solid black;
     border-radius: 10px;
