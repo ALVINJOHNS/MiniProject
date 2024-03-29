@@ -1,3 +1,4 @@
 .Main-Div {
     display: flex;
+    body{background-color: white;}
 }

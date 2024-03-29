@@ -1,4 +1,5 @@
 import './App.css';
+import JoinPage from './Pages/JoinPage/JoinPage';
 import VideoRoom from './Pages/VideoRoom/VideoRoom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
@@ -7,7 +8,9 @@ function App() {
     <Router>
     <div>
       <Routes>
-        <Route path="/" element={<VideoRoom />} />
+        <Route exact path="/" element={<JoinPage/>}/>
+        <Route path="/videoroom" element={<VideoRoom />} />
+        
       </Routes>
     </div>
     </Router>
