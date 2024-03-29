@@ -5,7 +5,7 @@ import './VideoRoom.css';
 
 function VideoRoom() {
   return (
-   <div className="Main-Div">
+   <div className="Main-Div" >
       <GridView/>
       <Message />
     </div>
