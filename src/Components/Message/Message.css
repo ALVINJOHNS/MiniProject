@@ -11,6 +11,38 @@
     position: relative;
     
 }
+.message-header  {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 0.5vb;
+    margin-left: 10px;
+
+}
+.text-messages{
+    width: 100px; /* Adjust width as needed */
+    height: 82%; /* Adjust height as needed */
+    overflow: auto; /* This enables scrolling */
+    
+}
+.text-messages::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar in WebKit browsers */
+  }
+.user-name{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+
+}
+.user-message{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+
+}
+
+ 
+
 .text-field {
     width: 90%;
     height: 40px;

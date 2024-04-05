@@ -1,0 +1,13 @@
+.my-message{
+    align-items: end;
+    align-self: flex-end;
+    align-content: flex-end;
+    text-align: end;
+}
+.user-message {
+    margin-bottom: 8px; /* Adjust margin as needed */
+  }
+  
+.username {
+    font-weight: bold; /* Make the username bold */
+  }
