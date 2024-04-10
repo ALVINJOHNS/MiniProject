@@ -1,8 +1,46 @@
 import React from 'react'
 import './Message.css';
+import { BiSolidSend  } from "react-icons/bi";
 import UserMessage from "../UserMessage/UserMessage"
-import {  FaPaperPlane } from 'react-icons/fa';
+import { useState } from 'react';
+// import {  FaPaperPlane } from 'react-icons/fa';
 function Message() {
+  let message;
+  const [messages,setMessages]=useState([])
+  // const messages = [
+  //   { username: 'Alice', message: 'Hello!', flagged: true },
+  //   { username: 'Bob', message: 'How are you guys jbj j j jb j j jh jh hb hbkbj  j ?', flagged: false },
+  //   { username: 'Charlie', message: 'I am fine', flagged: true },
+    
+  //   { username: 'Alice', message: 'Fine ,thank you', flagged: true },
+    
+
+  //   // Add more messages as needed
+  // ];
+  const handleSendMessage =() =>{
+    if (!message.trim()) {
+      return;
+    }
+    // setMessages(prevMessages => [
+    //   ...prevMessages,
+    //   { username: 'Alvin', message: message, isSender: false },
+    //   { username: 'Aparna', message: message, isSender: true }
+    // ]);
+    // setMessages([...messages,{username:'Alvin',message:message,isSender:false}])
+    // setMessages([...messages,{username:'Aparna',message:message,isSender:true}])
+    // console.log(message)
+    // message=''
+    
+    //   // Assuming you have different messages for sender and admin
+     
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { username: 'Alvin', message: message, isSender: false },
+       { username: 'Aparna', message: message, isSender: true }
+     ]);
+    console.log(message);
+    
+  };
   return (
     <div className="message-area">
       <div className="message-header">
@@ -10,24 +48,32 @@ function Message() {
          
       </div>
       <div className="text-messages">
-        <UserMessage username='User-1' message='Hellooo'/>
-        <h4 className='user-name'>User-1</h4> <p className='user-message'>Heljjjgjgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggloooooooooooooooooooo</p>
-        <h4>User-1</h4> <p>Hello</p>
-        <h4>User-1</h4> <p>Hello</p>
-        <h4>User-1</h4> <p>Hello</p>
-        <h4>User-1</h4> <p>Hello</p>
-        <h4>User-1</h4> <p>Hello</p>
-        <h4>User1</h4> <p>Hello</p>
-        <h4>User1</h4> <p>Hello</p>
-        <h4>User1</h4> <p >Hello</p>
+      {messages.map((message, index) => (
+        <UserMessage      
+          key={index}
+          username={message.username}
+          message={message.message}
+          isSender={message.isSender}
+        />
+      ))}
+        {/* <UserMessage username='Alvin' message='How r u?' isSender={true}/>
+        <UserMessage username='Aparna' message='I am fine' isSender={false} />
+        <UserMessage username='Alvin' message='What is ur name?' isSender={true}/>
+        <UserMessage username='Aparna' message='Aparna' isSender={false} /> */}
+        
       </div>
 
       <div className="text-field">
-        <input type="text" className="text-input" />
-        <FaPaperPlane className='send-icon' onClick={console.log('hi.................')}></FaPaperPlane>
+        <input type="text" className="text-input" onChange={
+          (e)=>{
+            message = e.target.value
+          }
+        }/>
+        <BiSolidSend className='send-icon' onClick={() => handleSendMessage()} />
+        {/* {<Io className='send-icon' onClick={console.log('hi.................')} */}
       </div>
     </div>
   );
 }
 
-export default Message
+export default Message;
