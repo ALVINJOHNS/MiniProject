@@ -25,7 +25,7 @@ function CameraComponent({ stream, number }) {
 
   return (
     <div className={CameraContainer}>
-      <video ref={videoRef} autoPlay playsInline className={CameraVideo} />
+      <video ref={videoRef} autoPlay playsInline className={CameraVideo} muted={true}/>
     </div>
   );
 }

@@ -3,18 +3,17 @@ import React from 'react';
 import './VideoTab.css';
 import CameraComponent from './CameraComponent';
 
-function VideoTab({key, index, number, videoStream, remoteStream , handleRemoteStream}) {
-  const videotab = number === 1 ? "video-tab-full" : "video-tab-half";
+function VideoTab(props) {
+  const videotab = props.number === 1 ? "video-tab-full" : "video-tab-half";
 
   return (
-    <div key={index} className={videotab}>
-      {index === 0 && videoStream ? (
-        <CameraComponent stream={videoStream} number={number} />
+    <div  className={videotab}>
+      
+      {props.stream ? (
+        <CameraComponent stream={props.stream} number={props.number} />
       ) : (
-        <CameraComponent stream={remoteStream} number={number} />
-        
+        <span className="no-video-text">No video</span>
       )}
-      {!videoStream && !remoteStream && <span className="no-video-text">No video</span>}
     </div>
     
   );

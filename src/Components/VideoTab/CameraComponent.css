@@ -17,6 +17,8 @@
     position: absolute;
     top: 0;
     left: 0;
+    
+    transform:  scaleX(-1);
   }
   .camera-video-half{
     min-height: 40vb;
@@ -25,4 +27,5 @@
     position: absolute;
     top: 0;
     left: 0;
+    transform:  scaleX(-1);
   }

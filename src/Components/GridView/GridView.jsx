@@ -1,46 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grommet, Grid, Header } from 'grommet';
 import './GridView.css';
 import VideoTab from '../VideoTab/VideoTab';
 import ControlButtons from '../ControlButtons/ControlButtons';
 
-const GridView = () => {
+const GridView = (props) => {
   const [n, setN] = useState(1);
   const [videoStream, setVideoStream] = useState(null);
   const [audioStream, setAudioStream] = useState(null);
   const [remoteStreams, setRemoteStreams] = useState([]);
 
-  useEffect(() => {
-    // Access user's media devices
-    const enableMedia = async () => {
-      try {
-        const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-
-
-        if (mediaStream) {
-          setVideoStream(mediaStream);
-           setAudioStream(mediaStream);
-        }
-      } catch (error) {
-        console.error('Error accessing camera:', error);
-      }
-    };
-
-    enableMedia();
-    
-   
-
-
-    // Set up WebSocket connection for signaling
-    // ...
-
-    // Set up peer connections
-    // ...
-
-    // Handle incoming remote streams
-    // ...
-  }, []);
-
+  
   const addParticipant = () => {
     setN(n + 1);
     // Code to set up peer connection with new participant
@@ -79,11 +49,10 @@ const GridView = () => {
           {Array.from({ length: n }, (_, index) => (
             <VideoTab
               key={index}
+              name={props.name}
               index={index}
               number={n}
-              videoStream={index === 0 ?  videoStream : null}
-              remoteStream={remoteStreams[index]}
-              handleRemoteStream={handleRemoteStream}
+              stream = {index === 0 ? props.videoStream : remoteStreams[index-1]}
             />
           ))}
         </Grid>
