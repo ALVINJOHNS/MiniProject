@@ -1,5 +1,8 @@
+
 .join-page{
-background-color: rgb(133, 0, 0);
+  background-color: aliceblue;
+  height: 100vh;
+  width: 100%;
 }
 .top-bar {
     display: flex;
@@ -96,4 +99,14 @@ background-color: rgb(133, 0, 0);
   height: 30px;
   margin-right: 20px;
   font-size: medium;
+  }
+
+  .camera-video-half{
+    min-height: 40vb;
+    max-height: 500vh;
+    object-fit: fill; /* Adjust as needed (cover, contain, etc.) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform:  scaleX(-1);
   }
