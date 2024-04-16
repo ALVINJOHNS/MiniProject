@@ -25,13 +25,13 @@ let remoteStream; //a var to hold the remote video stream
 let peerConnection; //the peerConnection that the two clients use to talk
 let didIOffer = false;
 
-const userName = "Rob-"+Math.floor(Math.random() * 100000)
+const meetId = "Rob-"+Math.floor(Math.random() * 100000)
 const password = "x";
 
-const socket = io.connect('https://192.168.1.35:8181/'
+const socket = io.connect('https://192.168.1.24:8181/'
 ,{
   auth: {
-      userName,password
+    meetId,password
   }
 }
 )
@@ -139,7 +139,7 @@ setRemoteStreams(remoteStream)
           if(e.candidate){
               socket.emit('sendIceCandidateToSignalingServer',{
                   iceCandidate: e.candidate,
-                  iceUserName: userName,
+                  iceUserName: meetId,
                   didIOffer,
               })    
           }
@@ -209,7 +209,7 @@ const addNewIceCandidate = iceCandidate=>{
 //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
   const handleJoinClick = () => {
-    navigate('/videoroom', { state: {name: userName, peerConnection:peerConnection} });
+    navigate('/videoroom', { state: {name: meetId, peerConnection:peerConnection} });
   };
   
   return (  
