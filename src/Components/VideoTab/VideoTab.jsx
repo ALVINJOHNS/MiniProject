@@ -9,7 +9,7 @@ function VideoTab(props) {
   return (
     <div  className={videotab}>
       
-      {props.stream ? (
+      {props.stream?(
         <CameraComponent stream={props.stream} number={props.number} />
       ) : (
         <span className="no-video-text">No video</span>

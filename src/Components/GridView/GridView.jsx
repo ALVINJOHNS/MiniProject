@@ -52,10 +52,10 @@ const GridView = (props) => {
             />
           ))}
         </Grid>
-        <button className='na' onClick={addParticipant}>Add Participant</button>
-        <button className='na'>Join</button>
+        {/*   <button className='na' onClick={addParticipant}>Add Participant</button> */}
+       
       </Grommet>
-      <ControlButtons />
+     
     </div>
   );
 };

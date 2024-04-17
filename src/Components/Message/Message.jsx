@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './Message.css';
 import { BiSolidSend  } from "react-icons/bi";
 import UserMessage from "../UserMessage/UserMessage"
 import { useState } from 'react';
+import { useEffect } from 'react';
 // import {  FaPaperPlane } from 'react-icons/fa';
-function Message() {
-  let message;
+function Message(props) {
+  const [message, setMessage] = useState('');
   const [messages,setMessages]=useState([])
   // const messages = [
   //   { username: 'Alice', message: 'Hello!', flagged: true },
@@ -18,9 +19,9 @@ function Message() {
   //   // Add more messages as needed
   // ];
   const handleSendMessage =() =>{
-    if (!message.trim()) {
-      return;
-    }
+    if (message.trim() !== '') {
+      
+    
     // setMessages(prevMessages => [
     //   ...prevMessages,
     //   { username: 'Alvin', message: message, isSender: false },
@@ -35,12 +36,24 @@ function Message() {
      
     setMessages(prevMessages => [
       ...prevMessages,
-      { username: 'Alvin', message: message, isSender: false },
-       { username: 'Aparna', message: message, isSender: true }
+      //{ username: props.userName, message: message, isSender: false },
+       { username: props.userName, message: message, isSender: true }
      ]);
     console.log(message);
-    
+    setMessage('');
+    };
+  }
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className="message-area">
       <div className="message-header">
@@ -55,20 +68,24 @@ function Message() {
           message={message.message}
           isSender={message.isSender}
         />
-      ))}
-        {/* <UserMessage username='Alvin' message='How r u?' isSender={true}/>
-        <UserMessage username='Aparna' message='I am fine' isSender={false} />
-        <UserMessage username='Alvin' message='What is ur name?' isSender={true}/>
-        <UserMessage username='Aparna' message='Aparna' isSender={false} /> */}
-        
-      </div>
+      ))} 
+      <div ref={messagesEndRef} />
+        </div>
 
       <div className="text-field">
-        <input type="text" className="text-input" onChange={
-          (e)=>{
-            message = e.target.value
-          }
-        }/>
+        <input type="text"
+         className="text-input"
+         value={message}
+          onChange={
+            (e)=>{
+            setMessage(e.target.value)
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSendMessage();
+            }
+          }}
+        />
         <BiSolidSend className='send-icon' onClick={() => handleSendMessage()} />
         {/* {<Io className='send-icon' onClick={console.log('hi.................')} */}
       </div>

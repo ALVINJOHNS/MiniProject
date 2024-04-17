@@ -11,9 +11,6 @@ import CameraComponent from '../../Components/VideoTab/CameraComponent';
 
 function JoinPage() {
 
-  //sssssssssssssssssssssssssssssssss
-  
-  //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
   // const [page,setPage] = useState('white')
   // document.body.style.backgroundColor = page;

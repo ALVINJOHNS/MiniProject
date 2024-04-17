@@ -5,13 +5,13 @@ import './VideoRoom.css';
 import { useLocation } from 'react-router-dom';
 import {  io } from "socket.io-client";
 import CameraComponent from '../../Components/VideoTab/CameraComponent';
+import ControlButtons from '../../Components/ControlButtons/ControlButtons';
 
 function VideoRoom() {
 
   const location = useLocation();
-  const name = location.state.name;
- 
-  console.log(name);
+  const userName = location.state.name;
+
 
 //sssssssssssssssssssssssssssssssssssssssssssss
 
@@ -227,17 +227,28 @@ const addNewIceCandidate = iceCandidate=>{
 
 //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
-
+const vvideoButtonFunc = () => {
+  console.log('videoButtonFunc')
+  if (videoStream) {
+    videoStream.getTracks().forEach((track) => {
+      track.enabled = !track.enabled;
+    });
+  }
+}
 
 
  
   return (
    <div className="Main-Div" >
-      <GridView name='alvin' number={2} videoStream={videoStream} remoteStream={videoStream} />
-      <Message/>
-      <button className='join-button' onClick={call}>call</button>
-      <button className='join-button' onClick={answerOffer}>answer</button>
-   <CameraComponent stream={remoteStreams} number={1}/> 
+    <div className='grid-n-buttons'>
+        <GridView name='alvin' number={2} videoStream={videoStream} remoteStream={remoteStreams} />
+      <div className='call-n-answer'>
+        <button className='call-button' onClick={call}>call</button>
+        <button className='answer-button' onClick={answerOffer}>answer</button>
+      </div> 
+      <ControlButtons videoButtonFunc={vvideoButtonFunc}/>
+    </div>
+      <Message userName={userName}/>
     </div>
   )
 }
