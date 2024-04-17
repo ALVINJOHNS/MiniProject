@@ -4,6 +4,7 @@ import { BiSolidSend  } from "react-icons/bi";
 import UserMessage from "../UserMessage/UserMessage"
 import { useState } from 'react';
 import { useEffect } from 'react';
+import socket from '../../socket';
 // import {  FaPaperPlane } from 'react-icons/fa';
 function Message(props) {
   const [message, setMessage] = useState('');
@@ -18,31 +19,36 @@ function Message(props) {
 
   //   // Add more messages as needed
   // ];
-  const handleSendMessage =() =>{
+  const handleSendMessage = () =>{
     if (message.trim() !== '') {
-      
-    
-    // setMessages(prevMessages => [
-    //   ...prevMessages,
-    //   { username: 'Alvin', message: message, isSender: false },
-    //   { username: 'Aparna', message: message, isSender: true }
-    // ]);
-    // setMessages([...messages,{username:'Alvin',message:message,isSender:false}])
-    // setMessages([...messages,{username:'Aparna',message:message,isSender:true}])
-    // console.log(message)
-    // message=''
-    
-    //   // Assuming you have different messages for sender and admin
-     
     setMessages(prevMessages => [
       ...prevMessages,
       //{ username: props.userName, message: message, isSender: false },
-       { username: props.userName, message: message, isSender: true }
+       { senderName: props.userName, message: message }
      ]);
-    console.log(message);
+     //console.log(messages);
+    socket.emit('newMessage', { senderName: props.userName, message: message });
     setMessage('');
     };
   }
+  socket.on('broadcastMessage', (incomemessage) => {
+   // console.log(incomemessage);
+    console.log("list",messages[messages.length-1])
+    console.log("income",incomemessage)
+   // if(messages[messages.length-1]!==incomemessage){
+      
+   
+setMessages(prevMessages => {
+  if (prevMessages[prevMessages.length - 1] !== incomemessage) {
+    return [...prevMessages, incomemessage];
+  } else {
+    return prevMessages;
+  }
+});
+
+    //}
+    // console.log(messages)
+  });
 
   const messagesEndRef = useRef(null);
 
@@ -64,13 +70,13 @@ function Message(props) {
       {messages.map((message, index) => (
         <UserMessage      
           key={index}
-          username={message.username}
+          username={props.userName}
+          senderName={message.senderName}
           message={message.message}
-          isSender={message.isSender}
         />
       ))} 
       <div ref={messagesEndRef} />
-        </div>
+      </div>
 
       <div className="text-field">
         <input type="text"

@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import {  io } from "socket.io-client";
 import CameraComponent from '../../Components/VideoTab/CameraComponent';
 import ControlButtons from '../../Components/ControlButtons/ControlButtons';
+import socket, { meetId } from '../../socket';
 
 function VideoRoom() {
 
@@ -22,17 +23,8 @@ let remoteStream; //a var to hold the remote video stream
 let peerConnection; //the peerConnection that the two clients use to talk
 let didIOffer = false;
 
-const meetId = Math.floor(Math.random() * 100000)
-const password = "x";
 
-const socket = io.connect('https://192.168.1.24:8181/'
-,{
-  auth: {
-    meetId,password
-  }
-}
-)
-
+ console.log(meetId)
 
 const [videoStream, setVideoStream] = useState(null);
 //const [audioStream, setAudioStream] = useState(null);
@@ -158,7 +150,12 @@ const fetchUserMedia = async ()=> {
             //this won't be set when called from call();
             //will be set when we call from answerOffer()
             // console.log(peerConnection.signalingState) //should be stable because no setDesc has been run yet
-            await peerConnection.setRemoteDescription(offerObj.offer)
+            try{
+              await peerConnection.setRemoteDescription(offerObj.offer)
+            }
+            catch(err){
+              console.log(err)
+            }
             // console.log(peerConnection.signalingState) //should be have-remote-offer, because client2 has setRemoteDesc on the offer
         }
         resolve();
@@ -198,7 +195,12 @@ const fetchUserMedia = async ()=> {
     //addAnswer is called in socketListeners when an answerResponse is emitted.
     //at this point, the offer and answer have been exchanged!
     //now CLIENT1 needs to set the remote
-    await peerConnection.setRemoteDescription(offerObj.answer)
+    try{
+      await peerConnection.setRemoteDescription(offerObj.answer)
+    }
+    catch(err){
+      console.log(err)
+    }
     // console.log(peerConnection.signalingState)
   }
 
@@ -220,7 +222,12 @@ socket.on('receivedIceCandidateFromServer',iceCandidate=>{
 })
 
 const addNewIceCandidate = iceCandidate=>{
-  peerConnection.addIceCandidate(iceCandidate)
+  try{
+    peerConnection.addIceCandidate(iceCandidate)
+  }
+  catch(err){
+    console.log(err)
+  }
   console.log("======Added Ice Candidate======")
 }
 
