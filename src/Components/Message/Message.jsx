@@ -7,6 +7,8 @@ import { useState } from 'react';
 function Message() {
   let message;
   const [messages,setMessages]=useState([])
+  // const [message, setMessage] = useState('');
+
   // const messages = [
   //   { username: 'Alice', message: 'Hello!', flagged: true },
   //   { username: 'Bob', message: 'How are you guys jbj j j jb j j jh jh hb hbkbj  j ?', flagged: false },
@@ -39,6 +41,7 @@ function Message() {
        { username: 'Aparna', message: message, isSender: true }
      ]);
     console.log(message);
+    // setMessages('');
     
   };
   return (
@@ -64,10 +67,10 @@ function Message() {
       </div>
 
       <div className="text-field">
-        <input type="text" className="text-input" onChange={
-          (e)=>{
-            message = e.target.value
-          }
+        <input type="text" className="text-input"  onChange={
+         (e)=>{
+          message = e.target.value
+        } 
         }/>
         <BiSolidSend className='send-icon' onClick={() => handleSendMessage()} />
         {/* {<Io className='send-icon' onClick={console.log('hi.................')} */}

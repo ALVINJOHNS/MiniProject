@@ -70,7 +70,7 @@ background-color: rgb(133, 0, 0);
     margin-top: 3%;
     background-color:#D9D9D9;
    align-items: center;
-   justify-content: space-between;
+   justify-content: center;
    padding: 6px;
    height: 5vb;
     display: flex;
@@ -81,7 +81,6 @@ background-color: rgb(133, 0, 0);
     height: 33px;
     width: 80%;
     font-size:20px;
-    margin-left: 10px;
     border: 0cap;
     outline: none;
   }
