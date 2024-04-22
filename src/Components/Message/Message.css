@@ -22,7 +22,8 @@
     width:280px; /* Adjust width as needed */
     height: 82%; /* Adjust height as needed */
     overflow: auto; /* This enables scrolling */
-    
+    display:flex;
+    flex-direction: column;
 }
 .text-messages::-webkit-scrollbar {
     width: 0; /* Hide scrollbar in WebKit browsers */

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './Message.css';
 import { BiSolidSend  } from "react-icons/bi";
 import UserMessage from "../UserMessage/UserMessage"
 import { useState } from 'react';
+import { useEffect } from 'react';
+import socket from '../../socket';
 // import {  FaPaperPlane } from 'react-icons/fa';
-function Message() {
-  let message;
+function Message(props) {
+  const [message, setMessage] = useState('');
   const [messages,setMessages]=useState([])
   // const [message, setMessage] = useState('');
 
@@ -19,31 +21,47 @@ function Message() {
 
   //   // Add more messages as needed
   // ];
-  const handleSendMessage =() =>{
-    if (!message.trim()) {
-      return;
-    }
-    // setMessages(prevMessages => [
-    //   ...prevMessages,
-    //   { username: 'Alvin', message: message, isSender: false },
-    //   { username: 'Aparna', message: message, isSender: true }
-    // ]);
-    // setMessages([...messages,{username:'Alvin',message:message,isSender:false}])
-    // setMessages([...messages,{username:'Aparna',message:message,isSender:true}])
-    // console.log(message)
-    // message=''
-    
-    //   // Assuming you have different messages for sender and admin
-     
+  const handleSendMessage = () =>{
+    if (message.trim() !== '') {
     setMessages(prevMessages => [
       ...prevMessages,
-      { username: 'Alvin', message: message, isSender: false },
-       { username: 'Aparna', message: message, isSender: true }
+      //{ username: props.userName, message: message, isSender: false },
+       { senderName: props.userName, message: message }
      ]);
-    console.log(message);
-    // setMessages('');
-    
+     //console.log(messages);
+    socket.emit('newMessage', { senderName: props.userName, message: message });
+    setMessage('');
+    };
+  }
+  socket.on('broadcastMessage', (incomemessage) => {
+   // console.log(incomemessage);
+    console.log("list",messages[messages.length-1])
+    console.log("income",incomemessage)
+   // if(messages[messages.length-1]!==incomemessage){
+      
+   
+setMessages(prevMessages => {
+  if (prevMessages[prevMessages.length - 1] !== incomemessage) {
+    return [...prevMessages, incomemessage];
+  } else {
+    return prevMessages;
+  }
+});
+
+    //}
+    // console.log(messages)
+  });
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className="message-area">
       <div className="message-header">
@@ -54,24 +72,28 @@ function Message() {
       {messages.map((message, index) => (
         <UserMessage      
           key={index}
-          username={message.username}
+          username={props.userName}
+          senderName={message.senderName}
           message={message.message}
-          isSender={message.isSender}
         />
-      ))}
-        {/* <UserMessage username='Alvin' message='How r u?' isSender={true}/>
-        <UserMessage username='Aparna' message='I am fine' isSender={false} />
-        <UserMessage username='Alvin' message='What is ur name?' isSender={true}/>
-        <UserMessage username='Aparna' message='Aparna' isSender={false} /> */}
-        
+      ))} 
+      <div ref={messagesEndRef} />
       </div>
 
       <div className="text-field">
-        <input type="text" className="text-input"  onChange={
-         (e)=>{
-          message = e.target.value
-        } 
-        }/>
+        <input type="text"
+         className="text-input"
+         value={message}
+          onChange={
+            (e)=>{
+            setMessage(e.target.value)
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSendMessage();
+            }
+          }}
+        />
         <BiSolidSend className='send-icon' onClick={() => handleSendMessage()} />
         {/* {<Io className='send-icon' onClick={console.log('hi.................')} */}
       </div>
