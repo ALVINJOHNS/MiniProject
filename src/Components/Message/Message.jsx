@@ -9,6 +9,8 @@ import socket from '../../socket';
 function Message(props) {
   const [message, setMessage] = useState('');
   const [messages,setMessages]=useState([])
+  // const [message, setMessage] = useState('');
+
   // const messages = [
   //   { username: 'Alice', message: 'Hello!', flagged: true },
   //   { username: 'Bob', message: 'How are you guys jbj j j jb j j jh jh hb hbkbj  j ?', flagged: false },

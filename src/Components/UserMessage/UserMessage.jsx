@@ -1,5 +1,6 @@
 import React from 'react'
 import './UserMessage.css';
+
 function UserMessage(props) {
 
   
@@ -13,6 +14,7 @@ return (
   { props.username !== props.senderName ?<h5 className='user-name'>{props.senderName}</h5>: null}
   <p className='user-message'>{props.message}</p>
   </div>
+  
     
 
       
