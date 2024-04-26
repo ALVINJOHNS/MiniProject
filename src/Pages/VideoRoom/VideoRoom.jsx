@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import GridView from "../../Components/GridView/GridView";
 import Message from "../../Components/Message/Message";
 import './VideoRoom.css';
 import { useLocation } from 'react-router-dom';
-import {  io } from "socket.io-client";
-import CameraComponent from '../../Components/VideoTab/CameraComponent';
 import ControlButtons from '../../Components/ControlButtons/ControlButtons';
 import socket, { meetId } from '../../socket';
 
+const socket1 = new WebSocket('ws://localhost:8000/ws/stream/');
 function VideoRoom() {
 
   const location = useLocation();
   const userName = location.state.name;
 
-
-//sssssssssssssssssssssssssssssssssssssssssssss
 
 const [offer1, setOffer] = useState(null);
 const [remoteStreams, setRemoteStreams] = useState(null);
@@ -27,10 +24,6 @@ let didIOffer = false;
  console.log(meetId)
 
 const [videoStream, setVideoStream] = useState(null);
-//const [audioStream, setAudioStream] = useState(null);
- //const [remoteStreams, setRemoteStreams] = useState([]);
-
-
 
 
 let peerConfiguration = {
@@ -86,13 +79,16 @@ const answerOffer = async()=>{
 const fetchUserMedia = async ()=> {
   try {
           const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
-    
-    
-          if (mediaStream) {
+
+         if (mediaStream) {
             console.log("media",mediaStream);
            await setVideoStream(mediaStream);
            //await setAudioStream(mediaStream);
           }
+
+        
+    
+          
         } catch (error) {
           console.error('Error accessing camera:', error);
         }
@@ -213,6 +209,8 @@ const fetchUserMedia = async ()=> {
   else{
     console.log('answer')
   }
+ 
+
 }, []);
 
 
@@ -232,9 +230,8 @@ const addNewIceCandidate = iceCandidate=>{
 }
 
 
-//eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
-const vvideoButtonFunc = () => {
+const videoButtonFunc = () => {
   console.log('videoButtonFunc')
   if (videoStream) {
     videoStream.getTracks().forEach((track) => {
@@ -243,8 +240,96 @@ const vvideoButtonFunc = () => {
   }
 }
 
+//sssssssssssssssssssssssssssssssssssssssssssssss
 
- 
+const videoRef = useRef(null);
+useEffect(() => {
+  if (videoStream && videoRef.current) {
+    videoRef.current.srcObject = videoStream;
+  }
+
+  return () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+
+      tracks.forEach((track) => {
+        track.stop();
+      });
+    }
+  };
+}, [videoStream]);
+
+
+function sendFrame() {
+  
+  const video = document.getElementById('video');
+  const canvas = document.createElement('canvas');
+  if (videoStream && canvas) { 
+    console.log('Sending frame');
+    // Set the canvas size to match the video stream dimensions
+    canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
+    canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
+    const context = canvas.getContext('2d');
+    // Draw the video frame onto the canvas
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/jpeg', 0.5); 
+   
+    socket1.send(dataURLtoBlob(imageData));
+}}
+
+function dataURLtoBlob(dataURL) {
+  const arr = dataURL.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+  }
+  return u8arr.buffer;
+}
+sendFrame()
+socket.onmessage = function(event) {
+  const data = JSON.parse(event.data);
+  if (data.prediction) {
+    console.log('Predicted sign:', data.prediction);
+    //  predictionDiv.innerHTML = 'Predicted sign: ' + data.prediction;
+  }
+};
+
+setInterval(() => {
+  sendFrame();
+}, 1000 / 30);
+
+//11111111111111
+// useEffect(() => {
+  
+
+//   const drawVideoOnCanvas = () => {
+//     const canvas = document.getElementById('canvas');
+//     if (videoStream && canvas) {
+//       // Set the canvas size to match the video stream dimensions
+//       canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
+//       canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
+//       const context = canvas.getContext('2d');
+//       // Draw the video frame onto the canvas
+//       context.drawImage(videoStream.current, 0, 0, canvas.width, canvas.height);
+//       const imageData = canvas.toDataURL('image/jpeg', 0.5); 
+//       // Schedule the next frame
+      
+//     }
+//   };
+
+//   // Start drawing video frames on the canvas when the video stream is available
+//   if (videoStream) {
+//     drawVideoOnCanvas();
+//   }
+// }, [videoStream]);
+
+
+//eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+
+
   return (
    <div className="Main-Div" >
     <div className='grid-n-buttons'>
@@ -253,7 +338,8 @@ const vvideoButtonFunc = () => {
         <button className='call-button' onClick={call}>call</button>
         <button className='answer-button' onClick={answerOffer}>answer</button>
       </div> 
-      <ControlButtons videoButtonFunc={vvideoButtonFunc}/>
+      <ControlButtons videoButtonFunc={videoButtonFunc}/>
+      <video id='video' ref={videoRef} autoPlay playsInline  muted={true}/>
     </div>
       <Message userName={userName}/>
     </div>
