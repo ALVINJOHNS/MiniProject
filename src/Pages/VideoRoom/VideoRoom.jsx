@@ -242,64 +242,64 @@ const videoButtonFunc = () => {
 
 //sssssssssssssssssssssssssssssssssssssssssssssss
 
-const videoRef = useRef(null);
-useEffect(() => {
-  if (videoStream && videoRef.current) {
-    videoRef.current.srcObject = videoStream;
-  }
+// const videoRef = useRef(null);
+// useEffect(() => {
+//   if (videoStream && videoRef.current) {
+//     videoRef.current.srcObject = videoStream;
+//   }
 
-  return () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const tracks = videoRef.current.srcObject.getTracks();
+//   return () => {
+//     if (videoRef.current && videoRef.current.srcObject) {
+//       const tracks = videoRef.current.srcObject.getTracks();
 
-      tracks.forEach((track) => {
-        track.stop();
-      });
-    }
-  };
-}, [videoStream]);
+//       tracks.forEach((track) => {
+//         track.stop();
+//       });
+//     }
+//   };
+// }, [videoStream]);
 
 
-function sendFrame() {
+// function sendFrame() {
   
-  const video = document.getElementById('video');
-  const canvas = document.createElement('canvas');
-  if (videoStream && canvas) { 
-    console.log('Sending frame');
-    // Set the canvas size to match the video stream dimensions
-    canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
-    canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
-    const context = canvas.getContext('2d');
-    // Draw the video frame onto the canvas
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageData = canvas.toDataURL('image/jpeg', 0.5); 
+//   const video = document.getElementById('video');
+//   const canvas = document.createElement('canvas');
+//   if (videoStream && canvas) { 
+//     console.log('Sending frame');
+//     // Set the canvas size to match the video stream dimensions
+//     canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
+//     canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
+//     const context = canvas.getContext('2d');
+//     // Draw the video frame onto the canvas
+//     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+//     const imageData = canvas.toDataURL('image/jpeg', 0.5); 
    
-    socket1.send(dataURLtoBlob(imageData));
-}}
+//     socket1.send(dataURLtoBlob(imageData));
+// }}
 
-function dataURLtoBlob(dataURL) {
-  const arr = dataURL.split(',');
-  const mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-  }
-  return u8arr.buffer;
-}
-sendFrame()
-socket.onmessage = function(event) {
-  const data = JSON.parse(event.data);
-  if (data.prediction) {
-    console.log('Predicted sign:', data.prediction);
-    //  predictionDiv.innerHTML = 'Predicted sign: ' + data.prediction;
-  }
-};
+// function dataURLtoBlob(dataURL) {
+//   const arr = dataURL.split(',');
+//   const mime = arr[0].match(/:(.*?);/)[1];
+//   const bstr = atob(arr[1]);
+//   let n = bstr.length;
+//   const u8arr = new Uint8Array(n);
+//   while (n--) {
+//       u8arr[n] = bstr.charCodeAt(n);
+//   }
+//   return u8arr.buffer;
+// }
+// sendFrame()
+// socket.onmessage = function(event) {
+//   const data = JSON.parse(event.data);
+//   if (data.prediction) {
+//     console.log('Predicted sign:', data.prediction);
+//     //  predictionDiv.innerHTML = 'Predicted sign: ' + data.prediction;
+//   }
+// };
 
-setInterval(() => {
-  sendFrame();
-}, 1000 / 30);
+// setInterval(() => {
+//   sendFrame();
+// }, 1000 / 30);
 
 //11111111111111
 // useEffect(() => {
@@ -339,7 +339,7 @@ setInterval(() => {
         <button className='answer-button' onClick={answerOffer}>answer</button>
       </div> 
       <ControlButtons videoButtonFunc={videoButtonFunc}/>
-      <video id='video' ref={videoRef} autoPlay playsInline  muted={true}/>
+      {/* <video id='video' ref={videoRef} autoPlay playsInline  muted={true}/> */}
     </div>
       <Message userName={userName}/>
     </div>

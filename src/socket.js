@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 export const meetId = Math.floor(Math.random() * 100000);
 export const password = "x";
 
-const socket = io.connect('https://192.168.1.54:8181/', {
+const socket = io.connect('https://192.168.1.41:8181/', {
   auth: { meetId, password }
 });
 
