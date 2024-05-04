@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import ControlButtons from '../../Components/ControlButtons/ControlButtons';
 import socket, { meetId } from '../../socket';
 
-const socket1 = new WebSocket('ws://localhost:8000/ws/stream/');
+const socket1 = new WebSocket('ws://localhost:8000/ws/hand_gesture/');
 function VideoRoom() {
 
   const location = useLocation();
@@ -242,40 +242,37 @@ const videoButtonFunc = () => {
 
 //sssssssssssssssssssssssssssssssssssssssssssssss
 
-// const videoRef = useRef(null);
-// useEffect(() => {
-//   if (videoStream && videoRef.current) {
-//     videoRef.current.srcObject = videoStream;
-//   }
 
-//   return () => {
-//     if (videoRef.current && videoRef.current.srcObject) {
-//       const tracks = videoRef.current.srcObject.getTracks();
+const video = document.createElement('video');
+const canvas = document.createElement('canvas');
 
-//       tracks.forEach((track) => {
-//         track.stop();
-//       });
-//     }
-//   };
-// }, [videoStream]);
+useEffect(() => {
+ if (videoStream) {
+  video.srcObject = videoStream;
+  };
+
+  }, [videoStream]);
 
 
-// function sendFrame() {
-  
-//   const video = document.getElementById('video');
-//   const canvas = document.createElement('canvas');
-//   if (videoStream && canvas) { 
-//     console.log('Sending frame');
-//     // Set the canvas size to match the video stream dimensions
-//     canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
-//     canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
-//     const context = canvas.getContext('2d');
-//     // Draw the video frame onto the canvas
-//     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-//     const imageData = canvas.toDataURL('image/jpeg', 0.5); 
+ function sendFrame() {
+   if (videoStream && canvas) { 
+    console.log('Sending frame');
+    // Set the canvas size to match the video stream dimensions
+    canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
+    canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
+    const context = canvas.getContext('2d');
+    // Draw the video frame onto the canvas
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob => {
+      socket1.send(blob);
+  }, 'image/jpeg');
    
 //     socket1.send(dataURLtoBlob(imageData));
-// }}
+ }}
+if (videoStream) {
+  
+      sendFrame();
+  };
 
 // function dataURLtoBlob(dataURL) {
 //   const arr = dataURL.split(',');
