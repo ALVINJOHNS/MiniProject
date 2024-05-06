@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import './Caption.css'
 import socket, { socketForML } from '../../socket';
 
-function Caption() {
+function Caption(props) {
     
   const [result , setResult] = useState("null");
 
     socketForML.onmessage = function (event) {
         const receivedData = event.data;
-        socket.emit('caption', receivedData)
+        socket.emit('caption', {user:props.name,caption:receivedData})
         if (receivedData !== "None") {
             
             console.log('Received:', receivedData);
@@ -22,8 +22,8 @@ function Caption() {
 
     socket.on('broadcastCaption', (caption) => {
         if (caption !== "None") {
-            setResult(caption)
-           
+            setResult(caption.user+caption.caption)
+           console.log('Received:', caption.caption, caption.user);
            // resultDiv.textContent = "Received letter: " + receivedData; // Update UI with the received letter
         } else {
             setResult(null)

@@ -288,7 +288,7 @@ startVideoStream();
       }
     }
 
-      // setInterval(captureFrame, 1000);
+     setInterval(captureFrame, 1000);
   
   }, []);
   
@@ -300,7 +300,7 @@ startVideoStream();
    <div className="Main-Div" >
     <div className='grid-n-buttons'>
         <GridView name={userName} number={2} videoStream={videoStream} remoteStream={remoteStreams} />
-        <Caption></Caption>
+        <Caption name={userName}></Caption>
       <div className='call-n-answer'>
         <button className='call-button' onClick={call}>call</button>
         <button className='answer-button' onClick={answerOffer}>answer</button>
