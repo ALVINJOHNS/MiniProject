@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import GridView from "../../Components/GridView/GridView";
 import Message from "../../Components/Message/Message";
+import Caption from "../../Components/Caption/Caption";
 import './VideoRoom.css';
 import { useLocation } from 'react-router-dom';
 import ControlButtons from '../../Components/ControlButtons/ControlButtons';
-import socket, { meetId } from '../../socket';
+import socket, { meetId,socketForML } from '../../socket';
 
-const socket1 = new WebSocket('ws://localhost:8000/ws/hand_gesture/');
 function VideoRoom() {
 
   const location = useLocation();
@@ -242,87 +242,56 @@ const videoButtonFunc = () => {
 
 //sssssssssssssssssssssssssssssssssssssssssssssss
 
-
-const video = document.createElement('video');
-const canvas = document.createElement('canvas');
-
-useEffect(() => {
- if (videoStream) {
-  video.srcObject = videoStream;
-  };
-
-  }, [videoStream]);
-
-
- function sendFrame() {
-   if (videoStream && canvas) { 
-    console.log('Sending frame');
-    // Set the canvas size to match the video stream dimensions
-    canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
-    canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
-    const context = canvas.getContext('2d');
-    // Draw the video frame onto the canvas
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    canvas.toBlob(blob => {
-      socket1.send(blob);
-  }, 'image/jpeg');
-   
-//     socket1.send(dataURLtoBlob(imageData));
- }}
-if (videoStream) {
-  
-      sendFrame();
-  };
-
-// function dataURLtoBlob(dataURL) {
-//   const arr = dataURL.split(',');
-//   const mime = arr[0].match(/:(.*?);/)[1];
-//   const bstr = atob(arr[1]);
-//   let n = bstr.length;
-//   const u8arr = new Uint8Array(n);
-//   while (n--) {
-//       u8arr[n] = bstr.charCodeAt(n);
-//   }
-//   return u8arr.buffer;
-// }
-// sendFrame()
-// socket.onmessage = function(event) {
-//   const data = JSON.parse(event.data);
-//   if (data.prediction) {
-//     console.log('Predicted sign:', data.prediction);
-//     //  predictionDiv.innerHTML = 'Predicted sign: ' + data.prediction;
-//   }
-// };
-
-// setInterval(() => {
-//   sendFrame();
-// }, 1000 / 30);
-
-//11111111111111
-// useEffect(() => {
-  
-
-//   const drawVideoOnCanvas = () => {
-//     const canvas = document.getElementById('canvas');
-//     if (videoStream && canvas) {
-//       // Set the canvas size to match the video stream dimensions
-//       canvas.width = videoStream.getVideoTracks()[0].getSettings().width;
-//       canvas.height = videoStream.getVideoTracks()[0].getSettings().height;
-//       const context = canvas.getContext('2d');
-//       // Draw the video frame onto the canvas
-//       context.drawImage(videoStream.current, 0, 0, canvas.width, canvas.height);
-//       const imageData = canvas.toDataURL('image/jpeg', 0.5); 
-//       // Schedule the next frame
+const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    // Connect to WebSocket server
       
-//     }
-//   };
+     //setWebSocket(ws);
+      console.log('Connecting to WebSocket server');
+      socketForML.onopen = () => {
+        console.log('Connected to WebSocket server');
+      };
+      socketForML.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
 
-//   // Start drawing video frames on the canvas when the video stream is available
-//   if (videoStream) {
-//     drawVideoOnCanvas();
-//   }
-// }, [videoStream]);
+    
+ 
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
 
+    console.log('video', video);
+    console.log('canvas', canvas);
+    const ctx = canvas.getContext('2d');
+
+    const startVideoStream = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+        video.srcObject = stream;
+      } catch (error) {
+        console.error('Error accessing webcam:', error);
+      }
+    };
+startVideoStream();
+    async function captureFrame() {
+      console.log('Capturing frame');
+      if (canvas && video && ctx && video.srcObject) {
+        canvas.width = video.width;
+        canvas.height = video.height;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(blob => {
+          console.log('Sending frame to server');
+           socketForML.send(blob);
+        }, 'image/jpeg');
+      }
+    }
+
+      // setInterval(captureFrame, 1000);
+  
+  }, []);
+  
 
 //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
@@ -330,16 +299,18 @@ if (videoStream) {
   return (
    <div className="Main-Div" >
     <div className='grid-n-buttons'>
-        <GridView name='alvin' number={2} videoStream={videoStream} remoteStream={remoteStreams} />
+        <GridView name={userName} number={2} videoStream={videoStream} remoteStream={remoteStreams} />
+        <Caption></Caption>
       <div className='call-n-answer'>
         <button className='call-button' onClick={call}>call</button>
         <button className='answer-button' onClick={answerOffer}>answer</button>
       </div> 
       <ControlButtons videoButtonFunc={videoButtonFunc}/>
-      {/* <video id='video' ref={videoRef} autoPlay playsInline  muted={true}/> */}
     </div>
       <Message userName={userName}/>
-    </div>
+      <video ref={videoRef} id="video" width="640" height="480" autoPlay style={{ display: 'none' }}></video>
+      <canvas ref={canvasRef} id="canvas" style={{ display: 'none' }}></canvas>
+  </div>
   )
 }
 
