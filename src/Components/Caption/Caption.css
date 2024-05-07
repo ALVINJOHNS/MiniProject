@@ -1,0 +1,11 @@
+.result{
+    background-color: #5A5353;
+    font-size: large;
+    width: 95%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 15px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}

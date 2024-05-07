@@ -5,9 +5,7 @@ import VideoTab from '../VideoTab/VideoTab';
 import ControlButtons from '../ControlButtons/ControlButtons';
 
 const GridView = (props) => {
-  const [n, setN] = useState(1);
-  const [videoStream, setVideoStream] = useState(null);
-  const [audioStream, setAudioStream] = useState(null);
+  const [n, setN] = useState(2);
   const [remoteStreams, setRemoteStreams] = useState([]);
 
   
@@ -18,9 +16,6 @@ const GridView = (props) => {
   };
 
   // Function to handle incoming remote streams
-  const handleRemoteStream = (stream) => {
-    setRemoteStreams(prevStreams => [...prevStreams, stream]);
-  };
 
   let columns;
   let rows;
@@ -49,17 +44,19 @@ const GridView = (props) => {
           {Array.from({ length: n }, (_, index) => (
             <VideoTab
               key={index}
-              name={props.name}
               index={index}
-              number={n}
-              stream = {index === 0 ? props.videoStream : remoteStreams[index-1]}
+              name={props.name}
+              stream={index === 0 ? props.videoStream : props.remoteStream}
+              // index={index}
+              // number={2}
+              // stream = { props.number=== 0 ? props.videoStream :props.remoteStreams[index]}
             />
           ))}
         </Grid>
-        <button className='na' onClick={addParticipant}>Add Participant</button>
-        <button className='na'>Join</button>
+        {/*   <button className='na' onClick={addParticipant}>Add Participant</button> */}
+       
       </Grommet>
-      <ControlButtons />
+     
     </div>
   );
 };
