@@ -18,7 +18,7 @@
 .video-call-text {
      top: 15px;  
      margin-left: 10%;
-    margin-top:15px; /* Add specific distance from top */
+    margin-top:15px; 
   }
    
   .home-option-buttons{
@@ -56,15 +56,15 @@
   }
   
   
-  /* App.css */
+ 
   
   .image {
     margin-top:  2.5% ;
-    width: 25%; /* Adjust the percentage value as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 25%;
+    height: auto;
   }
   
-  /* App.css */
+
   
   .join-box{
     
@@ -103,7 +103,7 @@
   .camera-video-half{
     min-height: 40vb;
     max-height: 500vh;
-    object-fit: fill; /* Adjust as needed (cover, contain, etc.) */
+    object-fit: fill; 
     position: absolute;
     top: 0;
     left: 0;

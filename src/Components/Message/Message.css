@@ -19,14 +19,14 @@
 
 }
 .text-messages{
-    width:280px; /* Adjust width as needed */
-    height: 82%; /* Adjust height as needed */
-    overflow: auto; /* This enables scrolling */
+    width:280px; 
+    height: 82%; 
+    overflow: auto; 
     display:flex;
     flex-direction: column;
 }
 .text-messages::-webkit-scrollbar {
-    width: 0; /* Hide scrollbar in WebKit browsers */
+    width: 0; 
   }
 .user-name{
     font-size:18px;
@@ -167,14 +167,10 @@
 
 
 .send-icon{
-    /* padding: 8px; */
     border-color: black;
     border-radius: 60%;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* justify-content: center; */
-    /* align-items: center; */
     font-size: 25px;
-    /* margin-right: 2px; */
     margin-top: 5px;
 }
