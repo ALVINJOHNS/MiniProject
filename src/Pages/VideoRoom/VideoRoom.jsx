@@ -172,9 +172,10 @@ const fetchUserMedia = async ()=> {
   // })
   
   socket.on('newOfferAwaiting',offers=>{
-    console.log('newOfferAwaiting',offers)
+    setAction('answer');
+    console.log('newOfferAwaiting',offers);
     offers.forEach(offerObj=>{
-      setOffer(offerObj)
+      setOffer(offerObj);
     })
    // setAction('answer')
     // if (didIOffer===false && action === 'answer'){
@@ -240,6 +241,14 @@ const videoButtonFunc = () => {
   }
 }
 
+const callButtonFunc =()=>{
+  if (action==='call'){
+    call();
+  }
+  else if(action==='answer'){
+    answerOffer();
+  }
+}
 //sssssssssssssssssssssssssssssssssssssssssssssss
 
 const videoRef = useRef(null);
@@ -288,7 +297,7 @@ startVideoStream();
       }
     }
 
-     setInterval(captureFrame, 1000);
+      setInterval(captureFrame, 1000);
   
   }, []);
   
@@ -301,11 +310,8 @@ startVideoStream();
     <div className='grid-n-buttons'>
         <GridView name={userName} number={2} videoStream={videoStream} remoteStream={remoteStreams} />
         <Caption name={userName}></Caption>
-      <div className='call-n-answer'>
-        <button className='call-button' onClick={call}>call</button>
-        <button className='answer-button' onClick={answerOffer}>answer</button>
-      </div> 
-      <ControlButtons videoButtonFunc={videoButtonFunc}/>
+     
+      <ControlButtons callButtonFunc={callButtonFunc} videoButtonFunc={videoButtonFunc}/>
     </div>
       <Message userName={userName}/>
       <video ref={videoRef} id="video" width="640" height="480" autoPlay style={{ display: 'none' }}></video>

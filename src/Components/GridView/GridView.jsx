@@ -44,6 +44,7 @@ const GridView = (props) => {
           {Array.from({ length: n }, (_, index) => (
             <VideoTab
               key={index}
+              index={index}
               name={props.name}
               stream={index === 0 ? props.videoStream : props.remoteStream}
               // index={index}

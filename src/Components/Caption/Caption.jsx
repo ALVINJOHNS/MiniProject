@@ -4,11 +4,11 @@ import socket, { socketForML } from '../../socket';
 
 function Caption(props) {
     
-  const [result , setResult] = useState("null");
+  const [result , setResult] = useState(null);
 
     socketForML.onmessage = function (event) {
         const receivedData = event.data;
-        socket.emit('caption', {user:props.name,caption:receivedData})
+        socket.emit('caption', {user:props.name,message:receivedData})
         if (receivedData !== "None") {
             
             console.log('Received:', receivedData);
@@ -22,8 +22,8 @@ function Caption(props) {
 
     socket.on('broadcastCaption', (caption) => {
         if (caption !== "None") {
-            setResult(caption.user+caption.caption)
-           console.log('Received:', caption.caption, caption.user);
+            setResult(caption.user+': '+caption.message)
+           console.log('Received:', caption.message, caption.user);
            // resultDiv.textContent = "Received letter: " + receivedData; // Update UI with the received letter
         } else {
             setResult(null)
@@ -33,9 +33,12 @@ function Caption(props) {
     });
 
   return (
-    <div
-      className="result">
+    <div>
+       {result && (
+        <div className="result">
         {result}
+        </div>
+       )}
     </div>
   )
 }
