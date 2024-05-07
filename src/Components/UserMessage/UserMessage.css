@@ -1,0 +1,43 @@
+ /* .my-message{ */
+    /* align-items: flex; */
+    /* align-self: flex-end; */
+    /* align-content: flex-end; */
+    /* text-align: end; */
+/* } */ */
+
+.sender {
+  /* Styles for sender's messages */
+   /* text-align: right;  */
+   align-self: flex-start;
+  
+   
+  
+  /* Additional styles as needed */
+}
+.admin {
+  /* Styles for admin's messages */
+    text-align: end;
+  margin-left: 170px;  
+  
+   align-self: flex-end; 
+  
+  /* margin-right:2px; */
+  
+  /* Additional styles as needed */
+}
+
+
+  
+.user-name{
+     font-size:20px;
+    margin-right: 0px;
+    margin-top: 30px; 
+    
+}
+.user-message{
+    width: 100px;
+    font-size: 18px;
+    margin-left: 5px; 
+     margin-top: 10px; 
+
+}

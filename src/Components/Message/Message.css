@@ -11,6 +11,135 @@
     position: relative;
     
 }
+.message-header  {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 0.5vb;
+    margin-left: 10px;
+
+}
+.text-messages{
+    width:280px; /* Adjust width as needed */
+    height: 82%; /* Adjust height as needed */
+    overflow: auto; /* This enables scrolling */
+    display:flex;
+    flex-direction: column;
+}
+.text-messages::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar in WebKit browsers */
+  }
+.user-name{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+
+}
+.user-message{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+
+}
+.user-message1{
+    font-size:18px;
+    margin-left: 220px;
+    margin-bottom: 3px;
+
+    
+    
+    
+}
+.user-name2{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+.user-message2{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+
+}
+.user-name3{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+.user-message3{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+
+
+}
+.user-name4{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+.user-message4{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+}
+.user-name5{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+.user-message5{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+
+}
+.user-name6{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+.user-message6{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+}
+.user-name7{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+.user-message7{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+}
+.user-name8{
+    font-size:18px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+    
+}
+.user-message8{
+    width: 100px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+}
+
+
+
+        
+
+
+ 
+
 .text-field {
     width: 90%;
     height: 40px;
@@ -19,29 +148,33 @@
     position: absolute;
     bottom: 3%;
     background-color: #ffffff;
-    align-items: center;
+    display:flex;
     margin: 10px;
-    display: flex;
 }
 
 .text-input {
-    width: 70%;
+    width: 80%;
+    margin-left: 10px;
     border: none;
     outline: none;
     border-color: transparent;
     font-size: 17px;
     background-color: #ffffff; 
-    padding: 5px; 
+
+
+    
 }
 
 
 .send-icon{
-    color: white;
-    background-color: rgb(112, 214, 255);
-    padding: 10px;
-    border-radius: 50%;
+    /* padding: 8px; */
+    border-color: black;
+    border-radius: 60%;
     cursor: pointer;
     transition: all 0.3s ease;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
+    font-size: 25px;
+    /* margin-right: 2px; */
+    margin-top: 5px;
 }
