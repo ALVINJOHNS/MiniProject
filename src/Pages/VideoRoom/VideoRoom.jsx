@@ -297,7 +297,7 @@ startVideoStream();
       }
     }
 
-      setInterval(captureFrame, 1000);
+       setInterval(captureFrame, 1000);
   
   }, []);
   
