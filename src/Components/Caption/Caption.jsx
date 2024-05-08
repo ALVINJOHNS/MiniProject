@@ -21,7 +21,7 @@ function Caption(props) {
     };
 
     socket.on('broadcastCaption', (caption) => {
-        if (caption !== "None") {
+        if (caption.message !== "None") {
             setResult(caption.user+': '+caption.message)
            console.log('Received:', caption.message, caption.user);
            // resultDiv.textContent = "Received letter: " + receivedData; // Update UI with the received letter
